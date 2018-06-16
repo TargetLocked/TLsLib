@@ -24,9 +24,9 @@ struct Splay {
 		for(int i=1;i<Msize;++i) p.push(i);
 	}
 	inline Splay() {clear();}
-	inline int newnode(int fa) {
+	inline int newnode(int x) {
 		int ret=p.top(); p.pop();
-		t[ret].clear(),t[ret].fa=fa,t[ret].cnt=t[ret].sz=1;
+		t[ret].clear(),t[ret].fa=x,t[ret].cnt=t[ret].sz=1;
 		return ret;
 	}
 	inline int sonid(int x) {return t[t[x].fa].son[1]==x;}
@@ -40,7 +40,6 @@ struct Splay {
 		updnode(f),updnode(x);
 	}
 	inline void splay(int x,int T=0) {
-		if(x==0) return;
 		int f=t[x].fa;
 		for(;f!=T;f=t[x].fa) {
 			if(t[f].fa!=T) rotate(sonid(x)==sonid(f) ? f : x);
@@ -75,6 +74,7 @@ struct Splay {
 			if(d>t[x].d) ret+=t[t[x].son[0]].sz+t[x].cnt;
 			x=t[x].son[d>t[x].d];
 		}
+		ret+=t[t[x].son[0]].sz;
 		splay(x);
 		return ret+1;
 	}
@@ -96,16 +96,16 @@ struct Splay {
 		int x=rt;
 		while(x&&t[x].d!=d) x=t[x].son[d>t[x].d];
 		splay(x);
-		return (x ? x : 0);
+		return (x ? x : -1);
 	}
 	inline int prev(int p) {
-		if(t[p].son[0]==0) return 0;
+		if(t[p].son[0]==0) return -1;
 		p=t[p].son[0];
 		while(t[p].son[1]) p=t[p].son[1];
 		return p;
 	}
 	inline int next(int p) {
-		if(t[p].son[1]==0) return 0;
+		if(t[p].son[1]==0) return -1;
 		p=t[p].son[1];
 		while(t[p].son[0]) p=t[p].son[0];
 		return p;
@@ -116,10 +116,11 @@ struct Splay {
 		splay(x);
 		if(t[x].cnt>1) --t[x].cnt;
 		else if(!t[x].son[0]||!t[x].son[1]) {
-			if(t[x].son[0]) rt=t[x].son[0];
-			else rt=t[x].son[1];
-			t[x].clear(),p.push(x);
 			if(t[x].son[0]+t[x].son[1]==0) rt=0;
+			else if(t[x].son[0]) rt=t[x].son[0];
+			else rt=t[x].son[1];
+			t[rt].fa=0;
+			t[x].clear(),p.push(x);
 		}
 		else {
 			int y=prev(x); splay(y);
@@ -132,14 +133,13 @@ struct Splay {
 	inline datatype prec(const datatype& d) {
 		int x=insert(d),y=prev(x);
 		erase(x);
-		if(y==0) return t[0].d;
+		if(y==-1) return t[0].d;
 		return t[y].d;
 	}
 	inline datatype succ(const datatype& d) {
 		int x=insert(d),y=next(x);
 		erase(x);
-		if(y==0) return t[0].d;
+		if(y==-1) return t[0].d;
 		return t[y].d;
 	}
 };
-
