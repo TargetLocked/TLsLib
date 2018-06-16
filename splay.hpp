@@ -40,6 +40,7 @@ struct Splay {
 		updnode(f),updnode(x);
 	}
 	inline void splay(int x,int T=0) {
+		if(x==0) return;
 		int f=t[x].fa;
 		for(;f!=T;f=t[x].fa) {
 			if(t[f].fa!=T) rotate(sonid(x)==sonid(f) ? f : x);
@@ -95,18 +96,21 @@ struct Splay {
 		int x=rt;
 		while(x&&t[x].d!=d) x=t[x].son[d>t[x].d];
 		splay(x);
-		return (x ? x : -1);
+		return (x ? x : 0);
 	}
 	inline int prev(int p) {
-		if(t[p].son[0]==0) return -1;
+		if(t[p].son[0]==0) return 0;
 		p=t[p].son[0];
 		while(t[p].son[1]) p=t[p].son[1];
+		return p;
 	}
 	inline int next(int p) {
-		if(t[p].son[1]==0) return -1;
+		if(t[p].son[1]==0) return 0;
 		p=t[p].son[1];
 		while(t[p].son[0]) p=t[p].son[0];
+		return p;
 	}
+	//void erase(SplayIterator x)
 	inline void erase(int x) {
 		if(t[x].cnt==0) return;
 		splay(x);
@@ -128,18 +132,14 @@ struct Splay {
 	inline datatype prec(const datatype& d) {
 		int x=insert(d),y=prev(x);
 		erase(x);
-		if(y==-1) return t[0].d;
+		if(y==0) return t[0].d;
 		return t[y].d;
 	}
 	inline datatype succ(const datatype& d) {
 		int x=insert(d),y=next(x);
 		erase(x);
-		if(y==-1) return t[0].d;
+		if(y==0) return t[0].d;
 		return t[y].d;
 	}
 };
-
-int main() {
-	return 0;
-}
 
