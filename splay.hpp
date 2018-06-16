@@ -24,9 +24,9 @@ struct Splay {
 		for(int i=1;i<Msize;++i) p.push(i);
 	}
 	inline Splay() {clear();}
-	inline int newnode(int x) {
+	inline int newnode(int fa) {
 		int ret=p.top(); p.pop();
-		t[ret].clear(),t[ret].fa=x,t[ret].cnt=t[ret].sz=1;
+		t[ret].clear(),t[ret].fa=fa,t[ret].cnt=t[ret].sz=1;
 		return ret;
 	}
 	inline int sonid(int x) {return t[t[x].fa].son[1]==x;}
