@@ -29,6 +29,7 @@ struct Splay {
 		t[ret].clear(),t[ret].fa=x,t[ret].cnt=t[ret].sz=1;
 		return ret;
 	}
+	inline size_t size() {return t[rt].sz;}
 	inline int sonid(int x) {return t[t[x].fa].son[1]==x;}
 	inline void updnode(int x) {t[x].sz=t[t[x].son[0]].sz+t[t[x].son[1]].sz+t[x].cnt;}
 	inline void rotate(int x) {
@@ -96,16 +97,16 @@ struct Splay {
 		int x=rt;
 		while(x&&t[x].d!=d) x=t[x].son[d>t[x].d];
 		splay(x);
-		return (x ? x : -1);
+		return (x ? x : 0);
 	}
 	inline int prev(int p) {
-		if(t[p].son[0]==0) return -1;
+		if(t[p].son[0]==0) return 0;
 		p=t[p].son[0];
 		while(t[p].son[1]) p=t[p].son[1];
 		return p;
 	}
 	inline int next(int p) {
-		if(t[p].son[1]==0) return -1;
+		if(t[p].son[1]==0) return 0;
 		p=t[p].son[1];
 		while(t[p].son[0]) p=t[p].son[0];
 		return p;
@@ -133,13 +134,13 @@ struct Splay {
 	inline datatype prec(const datatype& d) {
 		int x=insert(d),y=prev(x);
 		erase(x);
-		if(y==-1) return t[0].d;
+		if(y==0) return t[0].d;
 		return t[y].d;
 	}
 	inline datatype succ(const datatype& d) {
 		int x=insert(d),y=next(x);
 		erase(x);
-		if(y==-1) return t[0].d;
+		if(y==0) return t[0].d;
 		return t[y].d;
 	}
 };
