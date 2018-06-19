@@ -30,6 +30,7 @@ struct Splay {
 		return ret;
 	}
 	inline size_t size() {return t[rt].sz;}
+	inline datatype operator[](int p) {return t[p].d;}
 	inline int sonid(int x) {return t[t[x].fa].son[1]==x;}
 	inline void updnode(int x) {t[x].sz=t[t[x].son[0]].sz+t[t[x].son[1]].sz+t[x].cnt;}
 	inline void rotate(int x) {
