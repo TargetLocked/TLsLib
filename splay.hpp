@@ -11,8 +11,10 @@ struct Splay {
 	static const size_t Msize=1e5+5;
 	std::stack<int> p;
 	struct spnode {
-		int fa,sz,cnt,son[2];
+		int fa,cnt,son[2];
+		size_t sz;
 		datatype d;
+		//change here to extend the function
 		inline void clear() {son[0]=son[1]=fa=sz=cnt=0;}
 		inline spnode() {clear();}
 	}t[Msize];
@@ -21,18 +23,22 @@ struct Splay {
 	inline void clear() {
 		rt=0; t[0].clear();
 		while(!p.empty()) p.pop();
-		for(int i=1;i<Msize;++i) p.push(i);
+		for(unsigned i=1;i<Msize;++i) p.push(i);
 	}
 	inline Splay() {clear();}
 	inline int newnode(int x) {
 		int ret=p.top(); p.pop();
+		//change here to extend the function
 		t[ret].clear(),t[ret].fa=x,t[ret].cnt=t[ret].sz=1;
 		return ret;
 	}
 	inline size_t size() {return t[rt].sz;}
 	inline datatype operator[](int p) {return t[p].d;}
 	inline int sonid(int x) {return t[t[x].fa].son[1]==x;}
-	inline void updnode(int x) {t[x].sz=t[t[x].son[0]].sz+t[t[x].son[1]].sz+t[x].cnt;}
+	inline void updnode(int x) {
+		//change here to extend the function
+		t[x].sz=t[t[x].son[0]].sz+t[t[x].son[1]].sz+t[x].cnt;
+	}
 	inline void rotate(int x) {
 		int f=t[x].fa,id=sonid(x);
 		if(t[f].fa) t[t[f].fa].son[sonid(f)]=x;
@@ -64,7 +70,7 @@ struct Splay {
 			f=x,x=t[f].son[d>t[f].d];
 			if(x==0) {
 				int y=(t[f].son[d>t[f].d]=newnode(f));
-				t[y].d=d;
+				t[y].d=d,updnode(y);
 				updnode(f),splay(y);
 				return y;
 			}
@@ -116,7 +122,7 @@ struct Splay {
 	inline void erase(int x) {
 		if(t[x].cnt==0) return;
 		splay(x);
-		if(t[x].cnt>1) --t[x].cnt;
+		if(t[x].cnt>1) --t[x].cnt,updnode(x);
 		else if(!t[x].son[0]||!t[x].son[1]) {
 			if(t[x].son[0]+t[x].son[1]==0) rt=0;
 			else if(t[x].son[0]) rt=t[x].son[0];
