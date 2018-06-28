@@ -1,5 +1,4 @@
 #include <bits/stdc++.h>
-#define inline inline __attribute__((always_inline))
 
 std::mt19937 gen(std::time(0));
 std::mt19937_64 gen64(std::time(0));
