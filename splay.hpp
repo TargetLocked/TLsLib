@@ -59,8 +59,8 @@ struct Splay {
 	}
 	inline int insert(const datatype& d) {
 		if(rt==0) {
-			rt=newnode(0),t[rt].cnt=t[rt].sz=1,t[rt].d=d;
-			return 1;
+			rt=newnode(0),t[rt].d=d,updnode(rt);
+			return rt;
 		}
 		int x=rt,f=0;
 		while(1) {
@@ -106,7 +106,7 @@ struct Splay {
 		int x=rt;
 		while(x&&t[x].d!=d) x=t[x].son[d>t[x].d];
 		splay(x);
-		return (x ? x : 0);
+		return x;
 	}
 	inline int prev(int p) {
 		if(t[p].son[0]==0) return 0;
@@ -123,21 +123,18 @@ struct Splay {
 	//void erase(SplayIterator x)
 	inline void erase(int x) {
 		if(t[x].cnt==0) return;
-		splay(x);
-		if(t[x].cnt>1) --t[x].cnt,updnode(x);
-		else if(!t[x].son[0]||!t[x].son[1]) {
-			if(t[x].son[0]+t[x].son[1]==0) rt=0;
-			else if(t[x].son[0]) rt=t[x].son[0];
-			else rt=t[x].son[1];
-			t[rt].fa=0;
-			t[x].clear(),p.push(x);
+		splay(u,x);
+		if(t[x].cnt>1) {
+			--t[x].cnt,updnode(x);
+			return;
 		}
-		else {
-			int y=prev(x); splay(y);
+		else if(t[x].son[0]&&t[x].son[1]) {
+			int y=prev(x); splay(u,y);
 			t[t[x].son[1]].fa=y,t[y].son[1]=t[x].son[1];
 			updnode(y);
-			t[x].clear(),p.push(x);
 		}
+		else rt=t[x].son[0]+t[x].son[1];
+		t[rt].fa=0,p.push(x);
 	}
 	//data access : get precursor , get successor
 	inline datatype prec(const datatype& d) {
@@ -207,8 +204,8 @@ struct SplayForest {
 	}
 	inline int insert(int u,const datatype& d) {
 		if(rt[u]==0) {
-			rt[u]=newnode(0),t[rt[u]].cnt=t[rt[u]].sz=1,t[rt[u]].d=d;
-			return 1;
+			rt[u]=newnode(0),t[rt[u]].d=d,updnode(rt[u]);
+			return rt[u];
 		}
 		int x=rt[u],f=0;
 		while(1) {
@@ -254,7 +251,7 @@ struct SplayForest {
 		int x=rt[u];
 		while(x&&t[x].d!=d) x=t[x].son[d>t[x].d];
 		splay(u,x);
-		return (x ? x : 0);
+		return x;
 	}
 	inline int prev(int p) {
 		if(t[p].son[0]==0) return 0;
@@ -272,20 +269,17 @@ struct SplayForest {
 	inline void erase(int u,int x) {
 		if(t[x].cnt==0) return;
 		splay(u,x);
-		if(t[x].cnt>1) --t[x].cnt,updnode(x);
-		else if(!t[x].son[0]||!t[x].son[1]) {
-			if(t[x].son[0]+t[x].son[1]==0) rt[u]=0;
-			else if(t[x].son[0]) rt[u]=t[x].son[0];
-			else rt[u]=t[x].son[1];
-			t[rt[u]].fa=0;
-			t[x].clear(),p.push(x);
+		if(t[x].cnt>1) {
+			--t[x].cnt,updnode(x);
+			return;
 		}
-		else {
+		else if(t[x].son[0]&&t[x].son[1]) {
 			int y=prev(x); splay(u,y);
 			t[t[x].son[1]].fa=y,t[y].son[1]=t[x].son[1];
 			updnode(y);
-			t[x].clear(),p.push(x);
 		}
+		else rt[u]=t[x].son[0]+t[x].son[1];
+		t[rt[u]].fa=0,p.push(x);
 	}
 	//data access : get precursor , get successor
 	inline datatype prec(int u,const datatype& d) {
