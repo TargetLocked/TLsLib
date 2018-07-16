@@ -27,8 +27,7 @@ inline void getomega(int f) {
 
 Complex a[N],b[N],c[N];
 inline void fft(Complex* a) {
-	int k=0;
-	while((1<<k)<n) ++k;
+	int k=__builtin_ctz(n);
 	//bit inverse
 	for(int i=0;i<n;++i) {
 		int t=0;
@@ -36,7 +35,7 @@ inline void fft(Complex* a) {
 		if(i<t) swap(a[i],a[t]);
 	}
 	//iterate solve
-	//since DFT on a single element equals to itself , iterate length from 2 to n (2^k).
+	//since DFT on a single element equals to itself , iterate length from 2 to n
 	for(int l=2;l<=n;l<<=1) {
 		int h=l>>1; //half the length , i.e. previous iteration length
 		for(Complex* p=a;p!=a+n;p+=l) {
