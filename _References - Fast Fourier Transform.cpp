@@ -22,7 +22,7 @@ const double pi=acos(-1);
 inline void getomega(int f) {
 	//with f = -1 will get omega.conj()
 	u[0]=Complex(1),u[1]=Complex(cos(2*pi/n),sin(2*pi/n)*f);
-	for(int i=2;i<=n;++i) u[i]=u[i-1]*u[1];
+	for(int i=2;i<n;++i) u[i]=u[i-1]*u[1];
 }
 
 Complex a[N],b[N],c[N];
