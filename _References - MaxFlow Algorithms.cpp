@@ -1,8 +1,8 @@
 //begin: 网络流相关算法
 
 const int inf=1061109567;
-int n,To[maxm],Ne[maxm],St[maxn],Cf[maxm],Re[maxm],dis[maxn],cnt[maxn],en;
-int q[maxn<<1],Head,Tail;
+int n,To[M],Ne[M],St[N],Cf[M],Re[M],dis[N],cnt[N],en;
+int q[N<<1],Head,Tail;
 
 #define source (0)
 #define sink (n+1)
@@ -76,7 +76,7 @@ inline bool bfs() {
 	return dis[source]!=-1;
 }
 
-int Cu[maxn];
+int Cu[N];
 
 int dfs(int u,int fmax) {
 	if(u==sink) return fmax;
