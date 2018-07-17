@@ -21,7 +21,7 @@ inline void getomega(int exp) {
 	u[0]=1,u[1]=qp(g,(zqm-1)/(LL)n);
 	for(int i=2;i<n;++i) u[i]=(u[i-1]*1ll*u[1])%zqm;
 	if(exp==-1) {
-		for(int i=0;i<n;++i) u[i]=inv(u[i]);
+		for(int i=1;i<n;++i) u[i]=inv(u[i]);
 	}
 }
 
