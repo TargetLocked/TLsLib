@@ -1,7 +1,6 @@
 #include <ctime>
 #include <algorithm>
 #include <random>
-#define inline inline __attribute__((always_inline))
 
 std::mt19937 gen(std::time(0));
 std::mt19937_64 gen64(std::time(0));
@@ -38,5 +37,3 @@ inline void randweightedtree(int n,int wl,int wr,bool beginwith=1) {
 	for(int i=1;i<n;++i) printf("%d %d %d\n",p[i],p[randint(0,i-1)],randint(wl,wr));
 	delete[] p;
 }
-
-#undef inline
