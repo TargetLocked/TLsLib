@@ -10,7 +10,8 @@ inline void hpush(LL k) {
 }
 
 inline LL hpoptop() {
-	int i=1,ret=h[1],k=h[sz--];
+	int i=1;
+	LL ret=h[1],k=h[sz--];
 	for(int s=2;s<=sz;i=s,s=i<<1) {
 		if((s|1)<=sz&&h[s|1]<h[s]) s|=1;
 		if(h[s]>=k) break;
