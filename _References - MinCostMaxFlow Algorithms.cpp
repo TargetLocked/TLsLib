@@ -1,4 +1,4 @@
-const int inf=1061109567;
+const int inf=1061109567,ninf=-1061109568;
 int n,To[M],Ne[M],St[N],Cf[M],Re[M],dis[N],Co[M],en,cans,Ae[N];
 bool inq[N];
 
