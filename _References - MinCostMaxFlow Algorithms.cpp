@@ -3,7 +3,7 @@ int n,To[M],Ne[M],St[N],Cf[M],Re[M],dis[N],Co[M],en,cans,Ae[N];
 bool inq[N];
 
 #define source (0)
-#define sink (n+1)
+#define sink (::n+1)
 
 inline void addarc(int u,int v,int cf,int co) {To[++en]=v,Ne[en]=St[u],St[u]=en,Cf[en]=cf,Co[en]=co;}
 inline void addedge(int u,int v,int c,int co) {
@@ -21,38 +21,36 @@ int q[N<<1],Head,Tail;
 const int qsize=(N<<1)-1;
 
 inline bool spfa() {
-	Head=Tail=0;
 	memset(dis,63,sizeof(dis)); memset(inq,0,sizeof(inq));
-	q[Tail++]=sink; dis[sink]=0; inq[sink]=1;
+	dis[source]=0,inq[source]=1,Head=0,Tail=1; q[0]=source;
 	while(Head!=Tail) {
-		int sou=q[Head]; Head=loopinc(Head);
-		for(int i=St[sou];i;i=Ne[i]) {
-			if(Cf[Re[i]]>0&&dis[To[i]]>dis[sou]-Co[i]) {
-				dis[To[i]]=dis[sou]-Co[i];
-				if(!inq[To[i]]) {
-					inq[To[i]]=1;
-					if(Head!=Tail&&dis[To[i]]<dis[q[Head]]) Head=loopdec(Head),q[Head]=To[i];
-					else q[Tail]=To[i],Tail=loopinc(Tail);
-				}
+		int u=q[Head]; Head=loopinc(Head);
+		for(int i=St[u];i;i=Ne[i]) {
+			if(Cf[i]>0&&dis[u]+Co[i]<dis[To[i]]) {
+				dis[To[i]]=dis[u]+Co[i]; Ae[To[i]]=Re[i];
+				if(inq[To[i]]) continue;
+				inq[To[i]]=1;
+				if(Head!=Tail&&dis[To[i]]<dis[q[Head]]) q[Head=loopdec(Head)]=To[i];
+				else q[Tail]=To[i],Tail=loopinc(Tail);
 			}
 		}
-		inq[sou]=0;
+		inq[u]=0;
 	}
-	return dis[source]!=inf;
+	return dis[sink]!=inf;
 }
 
 inline int sendflow() {
-	int p=sink,fnum=inf;
-	for(;p!=source;p=To[Ae[p]]) fnum=min(fnum,Cf[Re[Ae[p]]]);
-	cans+=fnum*dis[sink];
-	for(p=sink;p!=source;p=To[Ae[p]]) Cf[Ae[p]]+=fnum,Cf[Re[Ae[p]]]-=fnum;
-	return fnum;
+	int p=sink,f=inf;
+	for(;p!=source;p=To[Ae[p]]) f=min(f,Cf[Re[Ae[p]]]);
+	cans+=f*dis[sink];
+	for(p=sink;p!=source;p=To[Ae[p]]) Cf[Ae[p]]+=f,Cf[Re[Ae[p]]]-=f;
+	return f;
 }
 
-inline int costflow_dinic() {
+//ans为流量，cans为费用
+inline int costflow() {
 	int ans=0; cans=0;
 	while(spfa()) ans+=sendflow();
-	//ans为流值，cans为费用
 	return cans;
 }
 
