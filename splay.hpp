@@ -50,8 +50,7 @@ struct Splay {
 	}
 	inline void splay(int x,int T=0) {
 		if(x==0) return;
-		int f=t[x].fa;
-		for(;f!=T;f=t[x].fa) {
+		for(int f=t[x].fa;f!=T;f=t[x].fa) {
 			if(t[f].fa!=T) rotate(sonid(x)==sonid(f) ? f : x);
 			rotate(x);
 		}
