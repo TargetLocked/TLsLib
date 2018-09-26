@@ -49,7 +49,7 @@ struct Splay {
 		updnode(f),updnode(x);
 	}
 	inline void splay(int x,int T=0) {
-		if(x==0) return;
+		if(x==T||x==0) return;
 		for(int f=t[x].fa;f!=T;f=t[x].fa) {
 			if(t[f].fa!=T) rotate(sonid(x)==sonid(f) ? f : x);
 			rotate(x);
@@ -87,8 +87,8 @@ struct Splay {
 		splay(x);
 		return ret+1;
 	}
-	inline datatype findrank(int r) {
-		int x=rt,tmp=t[t[x].son[0]].sz+t[x].cnt;
+	inline datatype findrank(size_t r) {
+		int x=rt; size_t tmp=t[t[x].son[0]].sz+t[x].cnt;
 		while(1) {
 			if(r<=t[t[x].son[0]].sz) x=t[x].son[0];
 			else {
@@ -107,28 +107,30 @@ struct Splay {
 		splay(x);
 		return x;
 	}
-	inline int prev(int p) {
-		if(t[p].son[0]==0) return 0;
-		p=t[p].son[0];
-		while(t[p].son[1]) p=t[p].son[1];
-		return p;
+	inline int prev(int x) {
+		splay(x);
+		if(t[x].son[0]==0) return 0;
+		x=t[x].son[0];
+		while(t[x].son[1]) x=t[x].son[1];
+		return x;
 	}
-	inline int next(int p) {
-		if(t[p].son[1]==0) return 0;
-		p=t[p].son[1];
-		while(t[p].son[0]) p=t[p].son[0];
-		return p;
+	inline int next(int x) {
+		splay(x);
+		if(t[x].son[1]==0) return 0;
+		x=t[x].son[1];
+		while(t[x].son[0]) x=t[x].son[0];
+		return x;
 	}
 	//void erase(SplayIterator x)
 	inline void erase(int x) {
 		if(t[x].cnt==0) return;
-		splay(u,x);
+		splay(x);
 		if(t[x].cnt>1) {
 			--t[x].cnt,updnode(x);
 			return;
 		}
 		else if(t[x].son[0]&&t[x].son[1]) {
-			int y=prev(x); splay(u,y);
+			int y=prev(x); splay(y);
 			t[t[x].son[1]].fa=y,t[y].son[1]=t[x].son[1];
 			updnode(y);
 		}
@@ -150,6 +152,7 @@ struct Splay {
 	}
 };
 
+//not modified yet
 template <class datatype>
 struct SplayForest {
 	static const size_t Msize=N<<2;
