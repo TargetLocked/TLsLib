@@ -153,6 +153,7 @@ struct Splay {
 };
 
 //not modified yet
+//maybe deprecated in some version; since a new approach to implement this is found
 template <class datatype>
 struct SplayForest {
 	static const size_t Msize=N<<2;
