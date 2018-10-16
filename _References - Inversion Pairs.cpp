@@ -1,4 +1,4 @@
-//begin: 归并求逆序对数
+//归并排序 求逆序对数
 
 long long ans;
 void mergesort(int l,int r) {
@@ -18,5 +18,3 @@ void mergesort(int l,int r) {
 	while(pr<=r) tmp[pt++]=d[pr++];
 	for(pt=l;pt<=r;++pt) d[pt]=tmp[pt];
 }
-
-//end: 归并求逆序对数
