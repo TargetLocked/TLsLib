@@ -1,3 +1,4 @@
+//并查集 按秩合并 路径压缩
 
 namespace ufs {
 	int fa[N],rk[N];
