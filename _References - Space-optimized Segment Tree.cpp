@@ -1,3 +1,5 @@
+//动态开点线段树
+
 #include <bits/stdc++.h>
 #define inline inline __attribute__((always_inline))
 using namespace std;
@@ -65,20 +67,20 @@ int main() {
 	//freopen(".ans","w",stdout);
 	
 	int q;
-    scanf("%d%d",&n,&q);
-    LL tmp; int k=1;
-    Build(k,1,n);
-    int a,b,opt;
-    while(q--) {
-        scanf("%d%d%d",&opt,&a,&b);
-        if(opt==1) {
-            scanf("%lld",&tmp);
-            Modify(k,1,n,a,b,tmp);
-        }
-        else {
-        	printf("%lld\n",Query(1,1,n,a,b));
+	scanf("%d%d",&n,&q);
+	LL tmp; int k=1;
+	Build(k,1,n);
+	int a,b,opt;
+	while(q--) {
+		scanf("%d%d%d",&opt,&a,&b);
+		if(opt==1) {
+			scanf("%lld",&tmp);
+			Modify(k,1,n,a,b,tmp);
 		}
-    }
+		else {
+			printf("%lld\n",Query(1,1,n,a,b));
+		}
+	}
 	
 	return 0;
 }
