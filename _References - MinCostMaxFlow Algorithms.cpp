@@ -1,4 +1,5 @@
-const int inf=1061109567,ninf=-1061109568;
+//网络流 最小费用最大流
+const int inf=1061109567,ninf=-1061109568,N=500,M=1000;
 int n,To[M],Ne[M],St[N],Cf[M],Re[M],dis[N],Co[M],en,cans,Ae[N];
 bool inq[N];
 
