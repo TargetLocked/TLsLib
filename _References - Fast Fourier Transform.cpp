@@ -1,4 +1,4 @@
-//begin: FFT 多项式乘法
+//FFT 多项式乘法
 
 #include <bits/stdc++.h>
 #define inline inline __attribute__((always_inline))
@@ -82,5 +82,3 @@ int main() {
 	
 	return 0;
 }
-
-//end: FFT 多项式乘法
