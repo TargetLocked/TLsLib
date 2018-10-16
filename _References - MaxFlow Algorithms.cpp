@@ -1,6 +1,6 @@
-//网络流相关算法
+//网络流 最大流
 
-const int inf=1061109567;
+const int inf=1061109567,N=500,M=1000;
 int n,To[M],Ne[M],St[N],Cf[M],Re[M],dis[N],cnt[N],en;
 int q[N<<1],Head,Tail;
 
