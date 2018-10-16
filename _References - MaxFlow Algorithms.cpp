@@ -1,4 +1,4 @@
-//begin: 网络流相关算法
+//网络流相关算法
 
 const int inf=1061109567;
 int n,To[M],Ne[M],St[N],Cf[M],Re[M],dis[N],cnt[N],en;
