@@ -1,4 +1,4 @@
-//begin: 小根堆
+//小根堆
 
 typedef long long LL;
 LL h[23333];
@@ -20,5 +20,3 @@ inline LL hpoptop() {
 	h[i]=k;
 	return ret;
 }
-
-//end: 小根堆
