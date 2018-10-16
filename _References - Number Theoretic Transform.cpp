@@ -1,4 +1,4 @@
-//begin: NTT 多项式乘法
+//NTT 多项式乘法
 
 #include <bits/stdc++.h>
 #define inline inline __attribute__((always_inline))
@@ -70,4 +70,4 @@ int main() {
 	return 0;
 }
 
-//end: NTT 多项式乘法
+//NTT 多项式乘法
