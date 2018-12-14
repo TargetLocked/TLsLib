@@ -2,7 +2,7 @@
 #define inline inline __attribute__((always_inline))
 using namespace std;
 
-//????
+//后缀数组
 
 const int N=4e4+5,lgN=15,inf=1061109567;
 int n,str[N];
