@@ -2,7 +2,7 @@
 #define inline inline __attribute__((always_inline))
 using namespace std;
 
-//ºó×ºÊý×é 
+//????
 
 const int N=4e4+5,lgN=15,inf=1061109567;
 int n,str[N];
@@ -11,16 +11,15 @@ struct suffixarray {
 	
 	inline suffixarray() {rk=&_d[0][0],tmp=&_d[1][0];}
 	
-	static inline bool comp(const int &a,const int &b) {return str[a]<str[b];}
-	
 	inline void getsa() {
 		for(int i=1;i<=n;++i) sa[i]=i;
-		sort(sa+1,sa+1+n,comp);
+		sort(sa+1,sa+1+n,[](const int &a,const int &b) {return str[a]<str[b];});
 		for(int i=1,j=1;i<=n;++i) {
 			if(str[sa[i]]!=str[sa[i-1]]) j=i;
 			rk[sa[i]]=j;
 		}
 		for(int k=1,p=0;k<n&&p<n;k*=2) {
+			p=0;
 			for(int i=n-k+1;i<=n;++i) tmp[++p]=i;
 			for(int i=1;i<=n;++i) if(sa[i]-k>0) tmp[++p]=sa[i]-k;
 			
