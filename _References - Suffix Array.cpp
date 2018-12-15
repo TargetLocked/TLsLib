@@ -12,6 +12,7 @@ struct suffixarray {
 	inline suffixarray() {rk=&_d[0][0],tmp=&_d[1][0];}
 	
 	inline void getsa() {
+		//assume sa[] _d[] h[] all filled with 0
 		for(int i=1;i<=n;++i) sa[i]=i;
 		sort(sa+1,sa+1+n,[](const int &a,const int &b) {return str[a]<str[b];});
 		for(int i=1,j=1;i<=n;++i) {
