@@ -11,8 +11,8 @@ struct suffixarray {
 	
 	inline suffixarray() {rk=&_d[0][0],tmp=&_d[1][0];}
 	
+	//assume _d[] is filled with 0
 	inline void getsa() {
-		//assume sa[] _d[] h[] all filled with 0
 		for(int i=1;i<=n;++i) sa[i]=i;
 		sort(sa+1,sa+1+n,[](const int &a,const int &b) {return str[a]<str[b];});
 		for(int i=1,j=1;i<=n;++i) {
@@ -41,6 +41,7 @@ struct suffixarray {
 	}
 	
 	inline void getheight() {
+		memset(h,0,sizeof(int)*(n+5));
 		for(int i=1;i<=n;++i) {
 			int p=h[rk[i-1]]-!!(h[rk[i-1]]);
 			while(str[i+p]==str[sa[rk[i]-1]+p]) ++p;
