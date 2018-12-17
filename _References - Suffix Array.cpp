@@ -54,6 +54,7 @@ struct suffixarray {
 	}
 	
 	inline int lcp(int x,int y) {
+		if(rk[x]>rk[y]) swap(x,y);
 		x=rk[x]+1,y=rk[y]; int k=log2(y-x+1);
 		return min(st[x][k],st[y-(1<<k)+1][k]);
 	}
