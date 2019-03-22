@@ -15,6 +15,6 @@ struct myhash {
 
 typedef tree<int,null_type,less<int>,rb_tree_tag,tree_order_statistics_node_update> ordered_set;
 typedef gp_hash_table<int,int,myhash<int>,equal_to<int>,direct_mod_range_hashing<int>,linear_probe_fn<>,
-	hash_standard_resize_policy<hash_prime_size_policy,hash_load_check_resize_trigger<true>, true>> hash_table;
+	hash_standard_resize_policy<hash_prime_size_policy,hash_load_check_resize_trigger<true>,true>> hash_table;
 		//replacement: hash_exponential_size_policy<>
 
