@@ -7,7 +7,7 @@ struct myhash {
 	typedef unsigned long long ull;
 	ull mogic=chrono::high_resolution_clock::now().time_since_epoch().count();
 	myhash() {ull *p=new ull; mogic^=*p; delete p;}
-	unsigned operator()(int x) {return x^mogic;}
+	unsigned operator()(int x) const {return x^mogic;}
 };
 
 typedef tree<int,null_type,less<int>,rb_tree_tag,tree_order_statistics_node_update> ordered_set;
