@@ -30,14 +30,14 @@ double randreal(double l=0,double r=1) {
 	return dis(gen);
 }
 
-void printrandtree(int n,bool beginwith=1) {
+void printrandtree(int n,int beginwith=1) {
 	int p[n];
 	for(int i=0;i<n;++i) p[i]=beginwith+i;
 	std::random_shuffle(p,p+n);
 	for(int i=1;i<n;++i) std::printf("%d %d\n",p[i],p[randint(0,i-1)]);
 }
 
-void printrandweightedtree(int n,int wl,int wr,bool beginwith=1) {
+void printrandweightedtree(int n,int wl,int wr,int beginwith=1) {
 	int p[n];
 	for(int i=0;i<n;++i) p[i]=beginwith+i;
 	std::random_shuffle(p,p+n);
