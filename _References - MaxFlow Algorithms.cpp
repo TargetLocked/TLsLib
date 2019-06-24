@@ -63,6 +63,7 @@ inline int maxFlow_sap() {
 
 inline bool bfs() {
 	Head=0,Tail=1;
+	memset(dis,255,sizeof(dis));
 	q[Tail]=sink; dis[sink]=0;
 	while(Head!=Tail) {
 		int sou=q[++Head];
@@ -81,9 +82,8 @@ int Cu[N];
 int dfs(int u,int fmax) {
 	if(u==sink) return fmax;
 	int fsum=0,res;
-	for(int i=Cu[u];i;i=Ne[i]) {
+	for(int &i=Cu[u];i;i=Ne[i]) {
 		if(Cf[i]>0&&dis[To[i]]+1==dis[u]) {
-			Cu[u]=i;
 			res=dfs(To[i],min(fmax-fsum,Cf[i]));
 			fsum+=res;
 			Cf[i]-=res,Cf[Re[i]]+=res;
@@ -95,11 +95,9 @@ int dfs(int u,int fmax) {
 
 inline int maxFlow_dinic() {
 	int ans=0;
-	memset(dis,255,sizeof(dis));
 	while(bfs()) {
 		memcpy(Cu,St,sizeof(Cu));
 		for(int res=233;res;ans+=(res=dfs(source,inf)));
-		memset(dis,255,sizeof(dis));
 	}
 	return ans;
 }
